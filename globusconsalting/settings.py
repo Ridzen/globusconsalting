@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -20,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lk+uf9nw$)tb0^^pl-zp9jk^cc@zcneq31*1d+^#s_zae6w769'
+SECRET_KEY = os.environ.get('DJANGO_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+HOST = os.environ.get('HOST')
 
 
 # Application definition
@@ -37,16 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # my apps
-    'apps.posts',
-    'apps.questionnaire',
 
     # libraries
     'rest_framework',
     'ckeditor',
     'django_cleanup',
     'ckeditor_uploader',
-    'django_filters'
+    'django_filters',
+    
+    # my apps
+    'apps.posts',
+    'apps.questionnaire',
 ]
 
 MIDDLEWARE = [
@@ -83,15 +86,24 @@ WSGI_APPLICATION = 'globusconsalting.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'globusconsalting',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+      'default': {
+
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+         'NAME': os.environ.get("DATABASE_NAME"),
+
+         'USER': os.environ.get("DATABASE_USER"),
+
+         'PASSWORD':  os.environ.get("DATABASE_PASSWORD"),
+
+         'HOST':  os.environ.get("DATABASE_HOST"),
+
+         'PORT': os.environ.get("DATABASE_PORT"),
+
+      }
+
 }
 
 
