@@ -4,9 +4,15 @@ import os
 import sys
 
 
+from globusconsalting.configurations import config
+
+
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'globusconsalting.settings')
+
+    config()
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
