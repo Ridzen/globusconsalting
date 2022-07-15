@@ -1,5 +1,10 @@
 from django.http import JsonResponse, HttpResponse
+
 from django_filters.rest_framework import DjangoFilterBackend
+from django.utils.decorators import method_decorator
+from django.views.decorators.vary import vary_on_cookie
+from django.views.decorators.cache import cache_page
+
 from rest_framework import status, generics, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,7 +23,8 @@ class QuestionnaireAPIView(generics.ListCreateAPIView):
 
 
 class QuestionnaireRetrieveAPIView(APIView):
-
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_cookie)
     def get(self, request, pk):
         try:
             product = Questionnaire.objects.get(id=pk)
