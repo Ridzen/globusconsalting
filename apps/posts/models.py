@@ -8,7 +8,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class PostCategories(models.Model):
     """Модель для категории постов"""
     title = models.CharField(max_length=255, unique=False)
-    image = models.ImageField()
 
     class Meta:
         verbose_name_plural = 'Категории постов'
