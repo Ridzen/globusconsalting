@@ -1,4 +1,11 @@
+python/
+pycharm + all/
+django/
+Procfile
+apps/posts/__pycache__/
+apps/posts/migrations/__pycache__/
+apps/questionnaire/__pycache__/
+apps/questionnaire/migrations/__pycache__/
+globusconsalting/__pycache__/
+globusconsalting/settings.py
 
-__pycache__/
-db.sqlite3/
-.idea/
