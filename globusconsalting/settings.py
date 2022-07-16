@@ -29,7 +29,6 @@ SECRET_KEY = os.environ.get('DJANGO_KEY')
 DEBUG = eval(os.environ.get('DJANGO_DEBUG'))
 
 ALLOWED_HOSTS = ["*"]
-HOST = os.environ.get('HOST')
 
 
 # Application definition
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'ckeditor_uploader',
     'django_filters',
+    'corsheaders',
     
     # my apps
     'apps.posts',
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -67,11 +68,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'globusconsalting.urls'
 
+TEMPLATES_DIRS = BASE_DIR / 'templates'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIRS],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,7 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bishkek'
 
 USE_I18N = True
 
@@ -161,5 +163,10 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-import sjango_heroku
-django_heroku.settings(local())
+
+CORS_ALLOWED_ORIGINS = [
+    "https://domain.com",
+    "https://api.domain.com",
+    "http://localhost:8000",
+    "http://127.0.0.1:9000"
+]
