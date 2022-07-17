@@ -11,6 +11,7 @@ class PostSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Post.objects.create(**validated_data)
 
+
 class PostCategorySerializer(serializers.ModelSerializer):
     products = PostSerializer(many=True)
 
